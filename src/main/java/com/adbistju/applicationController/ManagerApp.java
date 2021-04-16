@@ -27,8 +27,8 @@ public class ManagerApp {
         }
     }
 
-    public void delProdListBasket(){
-
+    public void delProdListBasket(String nameProd){
+        bastketUser.removeRepoList(nameProd);
     }
 
     public void addProdListBasket(){
@@ -45,6 +45,10 @@ public class ManagerApp {
 
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    public void addToBasketIsProductRepo(String nameProduct){
+        bastketUser.addRepoList(productRepository.searchIdProduct(nameProduct));
     }
 
     public BastketUser getBastketUser() {

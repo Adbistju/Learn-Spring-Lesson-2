@@ -8,27 +8,53 @@ public class AppControl {
 
     public void startApp(){
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
-        while (!input.equals(Commands.EXIT)) {
+        boolean startWhile = true;
+        while (startWhile) {
+            String input = scanner.nextLine();
             String tokens[] = input.split("\\s");
 
             String command = tokens[0];
             switch (command) {
                 case Commands.LIST_OF_PRODUCT:
-                    managerApp.getListDataBase(true);
+                    if(tokens.length <= 1){
+                        managerApp.getListBasket(true);
+                        break;
+                    } else if(tokens[1].equals("db")){
+                        managerApp.getListDataBase(true);
+                    } else if (tokens[1].equals("tr")){
+                        managerApp.getListBasket(true);
+                    }
                     break;
                 case Commands.LIST_OF_PRODUCT_COST:
-                    managerApp.getListDataBase(false);
+                    if(tokens.length <= 1){
+                        managerApp.getListBasket(false);
+                        break;
+                    } else if (tokens[1].equals("db")){
+                        managerApp.getListDataBase(false);
+                    } else if (tokens[1].equals("tr")){
+                        managerApp.getListBasket(false);
+                    }
                     break;
                 case Commands.DELETE_PRODUCT:
-                    System.out.println();
+                    if(tokens.length >= 1){
+                        managerApp.delProdListBasket(tokens[1]);
+                    } else {
+                        System.out.println("Вы не указали название продукта для удаления!");
+                    }
                     break;
                 case Commands.ADD_PRODUCT:
-                    System.out.println();
+                    if(tokens.length >= 1){
+                        managerApp.addToBasketIsProductRepo(tokens[1]);
+                    } else {
+                        System.out.println("Вы не указали название продукта для добавления!");
+                    }
                     break;
-                case Commands.PRODUCT_CONTENT:
-                    System.out.println();
+//                case Commands.PRODUCT_CONTENT:
+//                    System.out.println();
+//                    break;
+                case Commands.EXIT:
+                    scanner.close();
+                    startWhile = false;
                     break;
             }
         }
